@@ -1,0 +1,9 @@
+[Unit]
+Description=Podman sample nginx container
+
+[Container]
+ContainerName=nginx
+PublishPort=8080:80
+
+Image=docker.io/library/nginx:latest
+
