@@ -13,12 +13,21 @@ systemd:
         Documentation=https://github.com/jbtrystram/test-coreos-etc
         After=network-online.target
         Wants=network-online.target
+        # This only needs to run once
+        ConditionPathExists=!/var/lib/confexts/node-config
         [Service]
         Type=oneshot
         RemainAfterExit=yes
         ExecStart=/usr/bin/git clone https://github.com/jbtrystram/test-coreos-etc /var/lib/confexts/node-config
         [Install]
         WantedBy=multi-user.target
+    # These services needs to write to /etc and confexts
+    # make /etc RO
+    - name: coreos-ignition-write-issues.service
+      mask: true
+    - name: console-login-helper-messages-gensnippet-ssh-keys.service
+      mask: true
+
 
 ```
 
