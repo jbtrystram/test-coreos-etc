@@ -19,6 +19,7 @@ systemd:
         Type=oneshot
         RemainAfterExit=yes
         ExecStart=/usr/bin/git clone https://github.com/jbtrystram/test-coreos-etc /var/lib/confexts/node-config
+        ExecStart=systemd-confext merge
         [Install]
         WantedBy=multi-user.target
     # These services needs to write to /etc and confexts
@@ -27,8 +28,6 @@ systemd:
       mask: true
     - name: console-login-helper-messages-gensnippet-ssh-keys.service
       mask: true
-
-
 ```
 
 The machine could then be updated with 
